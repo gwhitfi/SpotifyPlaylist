@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LastFMAlbumArtSearch } from "../api/LastFMAlbumArtSearch";
+import { lastFMAlbumArtSearch } from "../api/lastFMAlbumArtSearch";
 
 function SongCard({ song, handleCheck, selectAll, showCovers }: any) {
     const [albumArt, setAlbumArt] = useState<string | null>(null);
@@ -8,7 +8,7 @@ function SongCard({ song, handleCheck, selectAll, showCovers }: any) {
 
     useEffect(() => {
         const fetchArt = async () => {
-            const artUrl = await LastFMAlbumArtSearch(song.artist, song.name);
+            const artUrl = await lastFMAlbumArtSearch(song.artist, song.name);
             setAlbumArt(artUrl);
         };
         fetchArt();
