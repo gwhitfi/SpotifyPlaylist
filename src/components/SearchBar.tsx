@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
-import { MusicBrainzArtistSearch } from "../api/MusicBrainzArtistSearch";
+import { musicBrainzArtistSearch } from "../api/musicBrainzArtistSearch";
 import { getCountryName } from "../utils/getCountryName";
 
 function SearchBar({ onArtistSelect }: any) {
@@ -11,7 +11,7 @@ function SearchBar({ onArtistSelect }: any) {
         const timer = setTimeout(async () => {
             if (input) {
                 try {
-                    const response = (await MusicBrainzArtistSearch(input)) as any;
+                    const response = (await musicBrainzArtistSearch(input)) as any;
                     if (!response) return;
                     const validArtists = response.artists.filter(
                         (artist: any) => artist.score >= 90,
