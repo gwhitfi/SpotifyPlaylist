@@ -1,4 +1,4 @@
-export async function SpotifyCreatePlaylist(userProfile: any, artist: any, playlistQueue: any) {
+export async function SpotifyCreatePlaylist(playlistQueue: any) {
     const accessToken = localStorage.getItem("access_token");
     try {
         const response = await fetch(`https://api.spotify.com/v1/me/playlists`, {
