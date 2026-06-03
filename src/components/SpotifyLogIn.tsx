@@ -1,4 +1,4 @@
-import requestUserAuth from "../api/SpotifyAuth";
+import requestUserAuth from "../api/spotifyAuth";
 import spotifyLogo from "../assets/Spotify_Primary_Logo_RGB_White.png";
 function SpotifyLogIn({ profile }: any) {
     let name = profile ? profile?.display_name : "Spotify Login";

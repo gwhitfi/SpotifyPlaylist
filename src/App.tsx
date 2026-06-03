@@ -4,7 +4,7 @@ import SearchBar from "./components/SearchBar";
 import { setlistFMSearch } from "./api/setlistFMSearch";
 import SetlistCard from "./components/SetlistCard";
 import SpotifyLogIn from "./components/SpotifyLogIn";
-import { getToken } from "./api/SpotifyAuth";
+import { getToken } from "./api/spotifyAuth";
 import { getSpotifyProfile } from "./utils/getSpotifyProfile";
 
 function App() {

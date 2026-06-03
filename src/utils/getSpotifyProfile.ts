@@ -1,4 +1,4 @@
-import { refreshToken } from "../api/SpotifyAuth";
+import { refreshToken } from "../api/spotifyAuth";
 
 export async function getSpotifyProfile(retried = false) {
     const accessToken = localStorage.getItem("access_token");
