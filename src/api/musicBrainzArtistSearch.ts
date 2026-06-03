@@ -1,4 +1,4 @@
-interface MusicBrainzArtist {
+export interface MusicBrainzArtist {
     id: string;
     score: number;
     name: string;
@@ -8,6 +8,10 @@ interface MusicBrainzArtist {
         ended?: string | null;
     };
     disambiguation?: string;
+    tags?: {
+        count: number;
+        name: string;
+    }[];
 }
 
 interface MusicBrainzResponse {

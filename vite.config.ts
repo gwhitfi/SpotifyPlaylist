@@ -12,6 +12,11 @@ export default defineConfig({
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/setlist/, ""),
             },
+            "/fanart": {
+                target: "https://webservice.fanart.tv",
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/fanart/, ""),
+            },
         },
     },
 });
