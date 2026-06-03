@@ -5,9 +5,13 @@ import { Funnel } from "lucide-react";
 import FiltersModal from "./FiltersModal";
 import PlaylistCreation from "./PlaylistCreation";
 
+interface SpotifyPlaylistQueue {
+    song: string;
+    artist: string;
+}
 function SetlistCard({ artistSetlist, selectedArtist, userProfile }: any) {
     const parsedSongs = Array.from(parseSetlist(artistSetlist).values());
-    const [playlistQueue, setPlaylistQueue] = useState<any[]>([]);
+    const [playlistQueue, setPlaylistQueue] = useState<SpotifyPlaylistQueue[]>([]);
     const [selectAll, setSelectAll] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [showCovers, setShowCovers] = useState(true);
@@ -19,10 +23,10 @@ function SetlistCard({ artistSetlist, selectedArtist, userProfile }: any) {
 
     const handleCheck = (songName: string, artistName: string, checked: boolean) => {
         if (checked) {
-            setPlaylistQueue((prev) => [...prev, { name: songName, artist: artistName }]);
+            setPlaylistQueue((prev) => [...prev, { song: songName, artist: artistName }]);
         }
         if (!checked) {
-            setPlaylistQueue((prev) => prev.filter((song) => song.name !== songName));
+            setPlaylistQueue((prev) => prev.filter((entry) => entry.song !== songName));
         }
     };
 
