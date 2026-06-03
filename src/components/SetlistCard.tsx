@@ -5,7 +5,7 @@ import { Funnel } from "lucide-react";
 import FiltersModal from "./FiltersModal";
 import PlaylistCreation from "./PlaylistCreation";
 
-interface SpotifyPlaylistQueue {
+export interface SpotifyPlaylistQueue {
     song: string;
     artist: string;
 }
@@ -32,14 +32,6 @@ function SetlistCard({ artistSetlist, selectedArtist, userProfile }: any) {
 
     return (
         <>
-            {/* <button
-                className="px-3 py-1 rounded-full bg-neutral-200 text-neutral-900"
-                onClick={() => console.log(playlistQueue)}
-            >
-                Print
-            </button>
-            */}
-
             <PlaylistCreation
                 artist={selectedArtist}
                 userProfile={userProfile}

@@ -1,9 +1,11 @@
-import { SpotifyCreatePlaylist } from "../api/SpotifyCreatePlaylist";
+import { spotifyCreatePlaylist } from "../api/spotifyCreatePlaylist";
 
-function PlaylistCreation({ playlistQueue }: any) {
+function PlaylistCreation({ playlistQueue, artist }: any) {
     return (
         <div>
-            <button onClick={() => SpotifyCreatePlaylist(playlistQueue)}>Create Playlist</button>
+            <button onClick={() => spotifyCreatePlaylist(playlistQueue, artist.name)}>
+                Create Playlist
+            </button>
         </div>
     );
 }
