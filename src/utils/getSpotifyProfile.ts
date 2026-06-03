@@ -1,6 +1,6 @@
 import { refreshToken } from "../api/spotifyAuth";
 
-interface SpotifyProfile {
+export interface SpotifyProfile {
     account_id: string;
     country: string;
     display_name: string;

@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import requestUserAuth, { getToken } from "../api/spotifyAuth";
 import spotifyLogo from "../assets/Spotify_Primary_Logo_RGB_White.png";
 import { getSpotifyProfile } from "../utils/getSpotifyProfile";
+import type { SpotifyProfile } from "../utils/getSpotifyProfile";
 
 function SpotifyLogIn() {
-    const [spotifyProfile, setSpotifyProfile] = useState<any>();
+    const [spotifyProfile, setSpotifyProfile] = useState<SpotifyProfile | null>(null);
     const exchangedRef = useRef(false);
 
     useEffect(() => {
@@ -12,21 +13,31 @@ function SpotifyLogIn() {
         const code = new URLSearchParams(window.location.search).get("code");
         if (code) {
             exchangedRef.current = true;
-            getToken().then(() => {
-                window.history.replaceState({}, "", "/");
-            });
+            const exchangeCode = async () => {
+                const success = await getToken();
+                if (success) {
+                    window.history.replaceState({}, "", "/");
+                }
+            };
+            exchangeCode();
         } else if (localStorage.getItem("access_token")) {
-            getSpotifyProfile().then(setSpotifyProfile);
+            const loadProfile = async () => {
+                try {
+                    const profile = await getSpotifyProfile();
+                    setSpotifyProfile(profile);
+                    if (profile) localStorage.setItem("user_id", profile.id);
+                } catch (error) {
+                    console.error(`Error fetching spotify profile ${error}`);
+                }
+            };
+            loadProfile();
         }
     }, []);
-    let name = "Log In";
-    let profilePic = spotifyLogo;
 
-    if (spotifyProfile) {
-        name = spotifyProfile?.display_name;
-        profilePic = spotifyProfile?.images?.[1]?.url;
-        localStorage.setItem("user_id", spotifyProfile.id);
-    }
+    const name = spotifyProfile?.display_name ?? "Log In";
+    const profilePic =
+        spotifyProfile?.images?.find((image) => image.height === 300)?.url ?? spotifyLogo;
+
     return (
         <div className="flex justify-center">
             <button

@@ -60,7 +60,7 @@ function SearchBar({ onArtistSelect }: any) {
                                     setInput("");
                                 }}
                             >
-                                {name} {countryOfOrigin} {`${yearFormed}`}
+                                {name} - {countryOfOrigin} {`${yearFormed}`}
                             </div>
                         );
                     })}
