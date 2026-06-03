@@ -1,8 +1,9 @@
-function FiltersModal({ onCoversCheck, onSort, showCovers, isSorted }: any) {
+function FiltersModal({ onCoversCheck, onSort, showCovers, isSorted, isHidden }: any) {
     const filterSelected = "bg-violet-500 text-white";
     const filterUnselected = "bg-neutral-200 text-neutral-900";
+    const hidden = isHidden ? "" : "hidden";
     return (
-        <div className="">
+        <div className={`${hidden}`}>
             <button
                 className={`px-3 py-1 rounded-full ${showCovers ? filterSelected : filterUnselected}`}
                 onClick={() => onCoversCheck((prev: any) => !prev)}

@@ -1,8 +1,32 @@
-import requestUserAuth from "../api/spotifyAuth";
+import { useEffect, useRef, useState } from "react";
+import requestUserAuth, { getToken } from "../api/spotifyAuth";
 import spotifyLogo from "../assets/Spotify_Primary_Logo_RGB_White.png";
-function SpotifyLogIn({ profile }: any) {
-    let name = profile ? profile?.display_name : "Spotify Login";
-    let logo = profile?.images?.[1]?.url ?? spotifyLogo;
+import { getSpotifyProfile } from "../utils/getSpotifyProfile";
+
+function SpotifyLogIn() {
+    const [spotifyProfile, setSpotifyProfile] = useState<any>();
+    const exchangedRef = useRef(false);
+
+    useEffect(() => {
+        if (exchangedRef.current) return;
+        const code = new URLSearchParams(window.location.search).get("code");
+        if (code) {
+            exchangedRef.current = true;
+            getToken().then(() => {
+                window.history.replaceState({}, "", "/");
+            });
+        } else if (localStorage.getItem("access_token")) {
+            getSpotifyProfile().then(setSpotifyProfile);
+        }
+    }, []);
+    let name = "Log In";
+    let profilePic = spotifyLogo;
+
+    if (spotifyProfile) {
+        name = spotifyProfile?.display_name;
+        profilePic = spotifyProfile?.images?.[1]?.url;
+        localStorage.setItem("user_id", spotifyProfile.id);
+    }
     return (
         <div className="flex justify-center">
             <button
@@ -10,7 +34,7 @@ function SpotifyLogIn({ profile }: any) {
                 onClick={requestUserAuth}
             >
                 <div className="flex items-center gap-2 font-bold text-lg">
-                    <img className="w-6 rounded-xl" src={logo} alt="logo" />
+                    <img className="w-6 rounded-xl" src={profilePic} alt="logo" />
                     {name}
                 </div>
             </button>
