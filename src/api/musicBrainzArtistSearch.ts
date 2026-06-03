@@ -26,7 +26,6 @@ export async function musicBrainzArtistSearch(userInput: string): Promise<MusicB
             return [];
         }
         const data: MusicBrainzResponse = await response.json();
-        console.log("DATA: ", data);
         return data.artists ?? [];
     } catch (error) {
         console.error(error);
