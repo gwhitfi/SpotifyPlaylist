@@ -46,9 +46,7 @@ function SearchBar({ onArtistSelect }: any) {
                 {debouncedArtists &&
                     debouncedArtists.map((result, index) => {
                         const name = result.name ? result.name : "Unknown Artist";
-                        const countryOfOrigin = getCountryName(result.country)
-                            ? `- ${getCountryName(result.country)}`
-                            : "";
+                        const countryOfOrigin = getCountryName(result.country);
                         const yearFormed = result["life-span"].begin
                             ? `(${result["life-span"].begin.split("-")[0]})`
                             : "";
