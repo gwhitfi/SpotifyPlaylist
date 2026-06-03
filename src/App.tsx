@@ -1,7 +1,7 @@
 import "./index.css";
 import { useState, useEffect, useRef } from "react";
 import SearchBar from "./components/SearchBar";
-import { SetlistFMSearch } from "./api/SetlistFMSearch";
+import { setlistFMSearch } from "./api/setlistFMSearch";
 import SetlistCard from "./components/SetlistCard";
 import SpotifyLogIn from "./components/SpotifyLogIn";
 import { getToken } from "./api/SpotifyAuth";
@@ -14,7 +14,7 @@ function App() {
     const exchangedRef = useRef(false);
     useEffect(() => {
         if (!selectedArtist) return;
-        SetlistFMSearch(selectedArtist.id).then(setArtistSetlist).catch(console.error);
+        setlistFMSearch(selectedArtist.id).then(setArtistSetlist).catch(console.error);
     }, [selectedArtist]);
 
     useEffect(() => {

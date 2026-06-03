@@ -11,11 +11,9 @@ function SearchBar({ onArtistSelect }: any) {
         const timer = setTimeout(async () => {
             if (input) {
                 try {
-                    const response = (await musicBrainzArtistSearch(input)) as any;
+                    const response = await musicBrainzArtistSearch(input);
                     if (!response) return;
-                    const validArtists = response.artists.filter(
-                        (artist: any) => artist.score >= 90,
-                    );
+                    const validArtists = response.filter((artist: any) => artist.score >= 90);
                     setDebouncedArtists(validArtists);
                 } catch (error) {
                     console.error("ERROR Setting Artist: ", error);
@@ -59,7 +57,6 @@ function SearchBar({ onArtistSelect }: any) {
                                 className="-mx-5 px-5 py-2 border-t-0 truncate whitespace-nowrap hover:bg-violet-500 hover:text-neutral-50 hover:cursor-pointer hover:font-bold"
                                 key={index}
                                 onMouseDown={() => {
-                                    console.log("ARTIST: ", result);
                                     onArtistSelect(result);
                                     setDebouncedArtists([]);
                                     setInput("");

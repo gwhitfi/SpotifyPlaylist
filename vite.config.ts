@@ -6,6 +6,12 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
     plugins: [react(), tailwindcss()],
     server: {
-        proxy: {},
+        proxy: {
+            "/setlist": {
+                target: "https://api.setlist.fm",
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/setlist/, ""),
+            },
+        },
     },
 });
