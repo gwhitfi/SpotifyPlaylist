@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { lastFMAlbumArtSearch } from "../api/lastFMAlbumArtSearch";
-import type { ParsedSong } from "../utils/parseSetlist";
+import { lastFMAlbumArtSearch } from "../../api/lastFMAlbumArtSearch";
+import type { ParsedSong } from "../../utils/parseSetlist";
 
 interface SongCardProps {
     song: ParsedSong;

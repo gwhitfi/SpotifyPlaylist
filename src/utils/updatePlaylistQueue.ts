@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import type { SpotifyPlaylistQueue } from "../components/SetlistCard";
+import type { SpotifyPlaylistQueue } from "../components/setlist/SetlistCard";
 
 export function updatePlaylistQueue(
     setPlaylistQueue: Dispatch<SetStateAction<SpotifyPlaylistQueue[]>>,

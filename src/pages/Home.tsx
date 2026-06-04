@@ -1,10 +1,10 @@
 import "../index.css";
 import { useState } from "react";
-import { SearchBar } from "../components/SearchBar";
-import { SetlistCard } from "../components/SetlistCard";
+import { SearchBar } from "../components/search/SearchBar";
+import { SetlistCard } from "../components/setlist/SetlistCard";
 import type { MusicBrainzArtist } from "../api/musicBrainzArtistSearch";
-import { ArtistCard } from "../components/ArtistCard";
-import { NavBar } from "../components/NavBar";
+import { ArtistCard } from "../components/search/ArtistCard";
+import { NavBar } from "../components/navigation/NavBar";
 
 export function Home() {
     const [selectedArtist, setSelectedArtist] = useState<MusicBrainzArtist | null>(null);

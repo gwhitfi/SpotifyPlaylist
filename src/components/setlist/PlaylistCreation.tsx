@@ -1,6 +1,6 @@
-import type { MusicBrainzArtist } from "../api/musicBrainzArtistSearch";
-import { spotifyCreatePlaylist } from "../api/spotifyCreatePlaylist";
-import { Button } from "./Button";
+import type { MusicBrainzArtist } from "../../api/musicBrainzArtistSearch";
+import { spotifyCreatePlaylist } from "../../api/spotify/spotifyCreatePlaylist";
+import { SetlistFilterButton } from "./SetlistFilterButton";
 import type { SpotifyPlaylistQueue } from "./SetlistCard";
 
 interface PlaylistCreationProps {
@@ -22,7 +22,7 @@ export function PlaylistCreation({ playlistQueue, artist }: PlaylistCreationProp
     };
     return (
         <div>
-            <Button
+            <SetlistFilterButton
                 buttonLabel="Create Playlist"
                 onClick={handleCreatePlaylist}
                 disabled={playlistQueue.length === 0}

@@ -1,4 +1,4 @@
-import { SpotifyLogIn } from "./SpotifyLogIn";
+import { SpotifyProfileButton } from "./SpotifyProfileButton";
 
 export function NavBar() {
     return (
@@ -6,7 +6,7 @@ export function NavBar() {
             <a href="/">
                 <h1 className="text-4xl text-center p-2">Setlists &rarr; Playlist</h1>
             </a>
-            <SpotifyLogIn />
+            <SpotifyProfileButton />
         </nav>
     );
 }

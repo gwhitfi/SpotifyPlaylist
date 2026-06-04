@@ -1,7 +1,7 @@
-import { Button } from "./Button";
+import { SetlistFilterButton } from "./SetlistFilterButton";
 import type { SortState } from "./SetlistCard";
 
-interface FilterPanelProps {
+interface SetlistFilterPanelProps {
     onToggleCovers: () => void;
     onSort: () => void;
     onSelectAll: () => void;
@@ -10,14 +10,14 @@ interface FilterPanelProps {
     selectAll: boolean;
 }
 
-export function FilterPanel({
+export function SetlistFilterPanel({
     onToggleCovers,
     onSort,
     onSelectAll,
     sortState,
     coversActive,
     selectAll,
-}: FilterPanelProps) {
+}: SetlistFilterPanelProps) {
     const sortLabel: Record<SortState, string> = {
         default: "Sort by Name",
         asc: "Name: A->Z",
@@ -25,13 +25,21 @@ export function FilterPanel({
     };
     return (
         <div className="flex flex-wrap gap-1 justify-center">
-            <Button buttonLabel="Cover Songs" isActive={coversActive} onClick={onToggleCovers} />
-            <Button
+            <SetlistFilterButton
+                buttonLabel="Cover Songs"
+                isActive={coversActive}
+                onClick={onToggleCovers}
+            />
+            <SetlistFilterButton
                 buttonLabel={sortLabel[sortState]}
                 isActive={sortState !== "default"}
                 onClick={onSort}
             />
-            <Button buttonLabel="Select All" onClick={onSelectAll} isActive={selectAll} />
+            <SetlistFilterButton
+                buttonLabel="Select All"
+                onClick={onSelectAll}
+                isActive={selectAll}
+            />
         </div>
     );
 }

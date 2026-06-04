@@ -1,4 +1,4 @@
-import type { SpotifyPlaylistQueue } from "../components/SetlistCard";
+import type { SpotifyPlaylistQueue } from "../../components/setlist/SetlistCard";
 import { refreshToken } from "./spotifyAuth";
 interface SpotifyPlaylist {
     href: string;

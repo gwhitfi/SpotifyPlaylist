@@ -1,8 +1,8 @@
 import { Search } from "lucide-react";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
-import { musicBrainzArtistSearch } from "../api/musicBrainzArtistSearch";
-import { getCountryName } from "../utils/getCountryName";
-import type { MusicBrainzArtist } from "../api/musicBrainzArtistSearch";
+import { musicBrainzArtistSearch } from "../../api/musicBrainzArtistSearch";
+import { getCountryName } from "../../utils/getCountryName";
+import type { MusicBrainzArtist } from "../../api/musicBrainzArtistSearch";
 
 interface SearchBarProps {
     setSelectedArtist: Dispatch<SetStateAction<MusicBrainzArtist | null>>;

@@ -1,4 +1,4 @@
-import { refreshToken } from "../api/spotifyAuth";
+import { refreshToken } from "./spotifyAuth";
 
 export interface SpotifyProfile {
     account_id: string;

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { getToken } from "../api/spotifyAuth";
+import { getToken } from "../api/spotify/spotifyAuth";
 
 export function Callback() {
     const navigate = useNavigate();

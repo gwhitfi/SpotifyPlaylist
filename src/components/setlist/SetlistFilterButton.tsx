@@ -1,11 +1,16 @@
-interface ButtonProps {
+interface SetlistFilterButtonProps {
     buttonLabel: string;
     onClick: () => void;
     isActive?: boolean;
     disabled?: boolean;
 }
 
-export function Button({ buttonLabel, onClick, isActive, disabled }: ButtonProps) {
+export function SetlistFilterButton({
+    buttonLabel,
+    onClick,
+    isActive,
+    disabled,
+}: SetlistFilterButtonProps) {
     const buttonColors = isActive
         ? `bg-violet-500 hover:bg-violet-400 text-neutral-900`
         : `bg-neutral-200 hover:bg-violet-400 text-neutral-900`;

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import spotifyLogo from "../assets/Spotify_Primary_Logo_RGB_White.png";
-import { getSpotifyProfile } from "../utils/getSpotifyProfile";
-import type { SpotifyProfile } from "../utils/getSpotifyProfile";
+import spotifyLogo from "../../assets/Spotify_Primary_Logo_RGB_White.png";
+import { getSpotifyProfile } from "../../api/spotify/getSpotifyProfile";
+import type { SpotifyProfile } from "../../api/spotify/getSpotifyProfile";
 import { ProfileMenu } from "./ProfileMenu";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
-export function SpotifyLogIn() {
+export function SpotifyProfileButton() {
     const [spotifyProfile, setSpotifyProfile] = useState<SpotifyProfile | null>(null);
     const [openProfileMenu, setOpenProfileMenu] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -24,16 +25,7 @@ export function SpotifyLogIn() {
         loadProfile();
     }, []);
 
-    useEffect(() => {
-        if (!openProfileMenu) return;
-        const handleClickOutside = (e: MouseEvent) => {
-            if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-                setOpenProfileMenu(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [openProfileMenu]);
+    useClickOutside(menuRef, () => setOpenProfileMenu(false));
 
     const profilePic =
         spotifyProfile?.images?.find((image) => image.height === 300)?.url ?? spotifyLogo;

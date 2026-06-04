@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { parseSetlist, type ParsedSong } from "../utils/parseSetlist";
+import { parseSetlist, type ParsedSong } from "../../utils/parseSetlist";
 import { SongCard } from "./SongCard";
-import { setlistFMSearch } from "../api/setlistFMSearch";
-import { updatePlaylistQueue } from "../utils/updatePlaylistQueue";
-import { sortSongsAtoZ } from "../utils/sortSongsAtoZ";
-import type { MusicBrainzArtist } from "../api/musicBrainzArtistSearch";
-import { FilterPanel } from "./FilterPanel";
+import { setlistFMSearch } from "../../api/setlistFMSearch";
+import { updatePlaylistQueue } from "../../utils/updatePlaylistQueue";
+import { sortSongsAtoZ } from "../../utils/sortSongsAtoZ";
+import type { MusicBrainzArtist } from "../../api/musicBrainzArtistSearch";
+import { SetlistFilterPanel } from "./SetlistFilterPanel";
 import { PlaylistCreation } from "./PlaylistCreation";
 
 export interface SpotifyPlaylistQueue {
@@ -60,7 +60,7 @@ export function SetlistCard({ selectedArtist }: SetlistCardProps) {
             <p className="text-end">Selected Songs: {playlistQueue.length}</p>
             <div className="flex justify-between items-end p-3 w-full">
                 <div className="flex">
-                    <FilterPanel
+                    <SetlistFilterPanel
                         onToggleCovers={() => {
                             if (showCovers) {
                                 setPlaylistQueue((prev) => prev.filter((song) => !song.isCover));
