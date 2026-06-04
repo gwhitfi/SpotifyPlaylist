@@ -32,10 +32,10 @@ export function SearchBar({ setSelectedArtist }: SearchBarProps) {
     }, [input]);
 
     return (
-        <div className="flex flex-col w-full p-6 bg-neutral-900 rounded-xl">
+        <div className="flex flex-col w-full p-6 bg-neutral-900 rounded-xl lg:p-12">
             <div className="relative">
                 <div
-                    className={`flex border-2 border-neutral-200 p-1 ${debouncedArtists.length > 0 ? "rounded-t-xl" : "rounded-xl"}`}
+                    className={`flex border-2 border-neutral-200 p-2 ${debouncedArtists.length > 0 ? "rounded-t-xl" : "rounded-xl"}`}
                 >
                     <input
                         value={input}

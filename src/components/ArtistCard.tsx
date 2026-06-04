@@ -21,7 +21,7 @@ export function ArtistCard({ selectedArtist }: ArtistCardProps) {
         artistArt?.artistbackground?.[0]?.url ?? artistArt?.hdmusiclogo?.[0]?.url ?? "";
 
     return (
-        <div className="flex flex-col items-center text-center bg-neutral-900 rounded-xl p-5 gap-2">
+        <div className="flex flex-col items-center text-center bg-neutral-900 rounded-xl p-5 gap-2 lg:p-12">
             <h2 className="text-4xl">{selectedArtist.name}</h2>
             <p className="text-xs">{selectedArtist?.tags?.[0]?.name ?? ""}</p>
             {profileImage && (

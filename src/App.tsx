@@ -11,7 +11,7 @@ function App() {
 
     return (
         <div className="bg-neutral-800  min-h-screen flex justify-center p-2">
-            <div className="flex flex-col text-neutral-200 max-w-lg w-full gap-5">
+            <div className="flex flex-col text-neutral-200 max-w-lg w-full gap-5 lg:max-w-2xl">
                 <a href="/">
                     <h1 className="text-4xl text-center p-2">Setlists &rarr; Playlist</h1>
                 </a>

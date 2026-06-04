@@ -28,8 +28,10 @@ export function SongCard({ song, handleCheck, selectAll }: SongCardProps) {
     return (
         <div className={`flex border border-neutral-50 p-2 rounded-xl w-full gap-3`}>
             {albumArt && <img className="rounded-xl" src={albumArt} alt="album-art" />}
-            <div className="flex flex-col w-full items-start justify-between">
-                <h2 className="text-xl">{song.isCover ? `${song.name} (cover)` : song.name}</h2>
+            <div className="flex flex-col w-full items-start justify-around">
+                <h2 className="text-sm md:text-xl overflow-hidden">
+                    {song.isCover ? `${song.name} (cover)` : song.name}
+                </h2>
                 {song.isCover && <p className="text-sm">{song.artist}</p>}
             </div>
             <div className="flex items-center">

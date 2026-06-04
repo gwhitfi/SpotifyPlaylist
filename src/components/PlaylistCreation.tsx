@@ -24,7 +24,6 @@ export function PlaylistCreation({ playlistQueue, artist }: PlaylistCreationProp
         <div>
             <Button
                 buttonLabel="Create Playlist"
-                color="green"
                 onClick={handleCreatePlaylist}
                 disabled={playlistQueue.length === 0}
             />
