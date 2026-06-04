@@ -22,10 +22,10 @@ export function ArtistCard({ selectedArtist }: ArtistCardProps) {
 
     return (
         <div className="flex flex-col items-center text-center bg-neutral-900 rounded-xl p-5 gap-2 lg:p-12">
-            <h2 className="text-4xl">{selectedArtist.name}</h2>
-            <p className="text-xs">{selectedArtist?.tags?.[0]?.name ?? ""}</p>
+            <h2 className="text-4xl lg:text-6xl">{selectedArtist.name}</h2>
+            <p className="text-xs lg:text-xl">{selectedArtist?.tags?.[0]?.name ?? ""}</p>
             {profileImage && (
-                <img src={profileImage} alt="artist-image" className="w-48 rounded-xl" />
+                <img src={profileImage} alt="artist-image" className="w-48 rounded-xl lg:w-96" />
             )}
         </div>
     );

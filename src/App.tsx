@@ -1,26 +1,22 @@
 import "./index.css";
-import { useState } from "react";
-import { SearchBar } from "./components/SearchBar";
-import { SetlistCard } from "./components/SetlistCard";
-import { SpotifyLogIn } from "./components/SpotifyLogIn";
-import type { MusicBrainzArtist } from "./api/musicBrainzArtistSearch";
-import { ArtistCard } from "./components/ArtistCard";
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Help } from "./pages/Help";
+import { About } from "./pages/About";
+import { Callback } from "./pages/Callback";
+import { NotFound } from "./pages/NotFound";
 
 function App() {
-    const [selectedArtist, setSelectedArtist] = useState<MusicBrainzArtist | null>(null);
-
     return (
-        <div className="bg-neutral-800  min-h-screen flex justify-center p-2">
-            <div className="flex flex-col text-neutral-200 max-w-lg w-full gap-5 lg:max-w-2xl">
-                <a href="/">
-                    <h1 className="text-4xl text-center p-2">Setlists &rarr; Playlist</h1>
-                </a>
-                <SpotifyLogIn />
-                <SearchBar setSelectedArtist={setSelectedArtist} />
-                {selectedArtist && <ArtistCard selectedArtist={selectedArtist} />}
-                {selectedArtist && <SetlistCard selectedArtist={selectedArtist} />}
-            </div>
-        </div>
+        <>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/callback" element={<Callback />} />
+                <Route path="/help" element={<Help />} />
+                <Route path="/about" element={<About />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </>
     );
 }
 
