@@ -7,7 +7,7 @@ import type { MusicBrainzArtist } from "../api/musicBrainzArtistSearch";
 interface SearchBarProps {
     setSelectedArtist: Dispatch<SetStateAction<MusicBrainzArtist | null>>;
 }
-function SearchBar({ setSelectedArtist }: SearchBarProps) {
+export function SearchBar({ setSelectedArtist }: SearchBarProps) {
     const [input, setInput] = useState("");
     const [debouncedArtists, setDebouncedArtists] = useState<MusicBrainzArtist[]>([]);
 
@@ -32,47 +32,54 @@ function SearchBar({ setSelectedArtist }: SearchBarProps) {
     }, [input]);
 
     return (
-        <div className="flex flex-col w-full p-3">
-            <div className="flex border-2 border-neutral-200 rounded-t-xl p-1">
-                <input
-                    value={input}
-                    className="w-full text-xl outline-none"
-                    name="search"
-                    placeholder="Search for an artist"
-                    autoComplete="off"
-                    onChange={(e) => {
-                        setInput(e.target.value);
-                    }}
-                />
-                <span>
-                    <Search />
-                </span>
-            </div>
-            <div className="flex flex-col px-5 text-xl border-x-2 border-b-2 border-neutral-200 rounded-b-xl  overflow-hidden">
-                {debouncedArtists &&
-                    debouncedArtists.map((result, index) => {
-                        const name = result.name ?? "Unknown Artist";
-                        const countryOfOrigin = result?.country
-                            ? getCountryName(result.country)
-                            : "";
-                        const yearFormed = result?.["life-span"]?.begin?.split("-")[0] ?? "";
-                        return (
-                            <div
-                                className="-mx-5 px-5 py-2 border-t-0 truncate whitespace-nowrap hover:bg-violet-500 hover:text-neutral-50 hover:cursor-pointer hover:font-bold"
-                                key={index}
-                                onMouseDown={() => {
-                                    setSelectedArtist(result);
-                                    setDebouncedArtists([]);
-                                    setInput("");
-                                }}
-                            >
-                                {name} - {countryOfOrigin} {`${yearFormed}`}
-                            </div>
-                        );
-                    })}
+        <div className="flex flex-col w-full p-6 bg-neutral-900 rounded-xl">
+            <div className="relative">
+                <div
+                    className={`flex border-2 border-neutral-200 p-1 ${debouncedArtists.length > 0 ? "rounded-t-xl" : "rounded-xl"}`}
+                >
+                    <input
+                        value={input}
+                        className="w-full text-xl outline-none"
+                        name="search"
+                        placeholder="Search for an artist"
+                        autoComplete="off"
+                        onChange={(e) => {
+                            setInput(e.target.value);
+                        }}
+                    />
+                    <span>
+                        <Search />
+                    </span>
+                </div>
+                {debouncedArtists.length > 0 && (
+                    <div className="absolute top-full left-0 w-full z-10 flex flex-col px-5 text-xl border-x-2 border-b-2 border-neutral-200 rounded-b-xl overflow-hidden bg-neutral-900">
+                        {debouncedArtists.map((result) => {
+                            const name = result.name ?? "Unknown Artist";
+                            const countryOfOrigin = result?.country
+                                ? getCountryName(result.country)
+                                : "";
+                            const yearFormed = result?.["life-span"]?.begin?.split("-")[0] ?? "";
+                            const artistDetail = [countryOfOrigin, yearFormed]
+                                .filter(Boolean)
+                                .join(" ");
+                            return (
+                                <div
+                                    className="-mx-5 px-5 py-2 border-t-0 truncate whitespace-nowrap hover:bg-violet-500 hover:text-neutral-50 hover:cursor-pointer hover:font-bold"
+                                    key={result.id}
+                                    onMouseDown={() => {
+                                        setSelectedArtist(result);
+                                        setDebouncedArtists([]);
+                                        setInput("");
+                                    }}
+                                >
+                                    {name}
+                                    {artistDetail && ` - ${artistDetail}`}
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
             </div>
         </div>
     );
 }
-
-export default SearchBar;

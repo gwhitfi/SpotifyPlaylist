@@ -16,7 +16,6 @@ export interface FanArtResponse {
 }
 
 export async function fanartTVArtSearch(artist: MusicBrainzArtist): Promise<FanArtResponse | null> {
-    console.log(artist);
     const apiKey = import.meta.env.VITE_FAN_ART_API_KEY;
     if (!apiKey) return null;
     const url = `/fanart/v3.2/music/${artist.id}?api_key=${apiKey}`;

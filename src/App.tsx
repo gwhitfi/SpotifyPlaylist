@@ -1,10 +1,10 @@
 import "./index.css";
 import { useState } from "react";
-import SearchBar from "./components/SearchBar";
-import SetlistCard from "./components/SetlistCard";
-import SpotifyLogIn from "./components/SpotifyLogIn";
-import ArtistCard from "./components/ArtistCard";
+import { SearchBar } from "./components/SearchBar";
+import { SetlistCard } from "./components/SetlistCard";
+import { SpotifyLogIn } from "./components/SpotifyLogIn";
 import type { MusicBrainzArtist } from "./api/musicBrainzArtistSearch";
+import { ArtistCard } from "./components/ArtistCard";
 
 function App() {
     const [selectedArtist, setSelectedArtist] = useState<MusicBrainzArtist | null>(null);

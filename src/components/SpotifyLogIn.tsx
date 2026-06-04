@@ -4,7 +4,7 @@ import spotifyLogo from "../assets/Spotify_Primary_Logo_RGB_White.png";
 import { getSpotifyProfile } from "../utils/getSpotifyProfile";
 import type { SpotifyProfile } from "../utils/getSpotifyProfile";
 
-function SpotifyLogIn() {
+export function SpotifyLogIn() {
     const [spotifyProfile, setSpotifyProfile] = useState<SpotifyProfile | null>(null);
     const exchangedRef = useRef(false);
 
@@ -52,4 +52,3 @@ function SpotifyLogIn() {
         </div>
     );
 }
-export default SpotifyLogIn;

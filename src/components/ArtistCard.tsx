@@ -6,7 +6,7 @@ interface ArtistCardProps {
     selectedArtist: MusicBrainzArtist;
 }
 
-function ArtistCard({ selectedArtist }: ArtistCardProps) {
+export function ArtistCard({ selectedArtist }: ArtistCardProps) {
     const [artistArt, setArtistArt] = useState<FanArtResponse | null>(null);
 
     useEffect(() => {
@@ -30,5 +30,3 @@ function ArtistCard({ selectedArtist }: ArtistCardProps) {
         </div>
     );
 }
-
-export default ArtistCard;

@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { parseSetlist, type ParsedSong } from "../utils/parseSetlist";
-import SongCard from "./SongCard";
+import { SongCard } from "./SongCard";
 import { Funnel } from "lucide-react";
-import FiltersModal from "./FiltersModal";
-import PlaylistCreation from "./PlaylistCreation";
 import { setlistFMSearch } from "../api/setlistFMSearch";
 import { updatePlaylistQueue } from "../utils/updatePlaylistQueue";
 import { Button } from "./Button";
 import { sortSongsAtoZ } from "../utils/sortSongsAtoZ";
 import type { MusicBrainzArtist } from "../api/musicBrainzArtistSearch";
+import { FilterPanel } from "./FilterPanel";
+import { PlaylistCreation } from "./PlaylistCreation";
 
 export interface SpotifyPlaylistQueue {
     song: string;
     artist: string;
+    isCover: boolean;
 }
 
 interface SetlistCardProps {
@@ -26,7 +27,7 @@ export const nextState: Record<SortState, SortState> = {
     desc: "default",
 };
 
-function SetlistCard({ selectedArtist }: SetlistCardProps) {
+export function SetlistCard({ selectedArtist }: SetlistCardProps) {
     const [parsedSongs, setParsedSongs] = useState<ParsedSong[]>([]);
     const [playlistQueue, setPlaylistQueue] = useState<SpotifyPlaylistQueue[]>([]);
     const [selectAll, setSelectAll] = useState(false);
@@ -38,8 +39,14 @@ function SetlistCard({ selectedArtist }: SetlistCardProps) {
         parsedSongs && sortState !== "default"
             ? sortSongsAtoZ(parsedSongs, sortState)
             : parsedSongs;
+    const visibleSongs = showCovers ? sortedSongs : sortedSongs?.filter((song) => !song.isCover);
     useEffect(() => {
         if (!selectedArtist) return;
+        setPlaylistQueue([]);
+        setSelectAll(false);
+        setFiltersOpen(false);
+        setShowCovers(true);
+        setSortState("default");
         const loadSetlist = async () => {
             try {
                 const setlist = await setlistFMSearch(selectedArtist.id);
@@ -60,11 +67,17 @@ function SetlistCard({ selectedArtist }: SetlistCardProps) {
                         className="hover:cursor-pointer hover:text-green-400"
                         onClick={() => setFiltersOpen((prev) => !prev)}
                     />
-                    <FiltersModal
-                        showCovers={() => setShowCovers((prev) => !prev)}
-                        isSorted={() => setSortState((prev) => nextState[prev])}
-                        isHidden={filtersOpen}
+                    <FilterPanel
+                        onToggleCovers={() => {
+                            if (showCovers) {
+                                setPlaylistQueue((prev) => prev.filter((song) => !song.isCover));
+                            }
+                            setShowCovers((prev) => !prev);
+                        }}
+                        onSort={() => setSortState((prev) => nextState[prev])}
+                        isOpen={filtersOpen}
                         sortState={sortState}
+                        coversActive={showCovers}
                     />
                 </div>
                 <div className="flex flex-col items-end">
@@ -72,22 +85,32 @@ function SetlistCard({ selectedArtist }: SetlistCardProps) {
                         buttonLabel="Select All"
                         color="violet"
                         onClick={() => setSelectAll((prev) => !prev)}
-                        defaultStatus={false}
+                        isActive={selectAll}
                     />
                     <p className="text-end">Selected Songs: {playlistQueue.length}</p>
                 </div>
             </div>
             <div className="flex flex-col gap-1">
-                {sortedSongs?.map((song: ParsedSong, index: number) => {
+                {visibleSongs?.map((song: ParsedSong) => {
                     return (
                         <SongCard
-                            key={index}
+                            key={song.name}
                             song={song}
-                            handleCheck={(songName: string, songArtist: string, checked: boolean) =>
-                                updatePlaylistQueue(setPlaylistQueue, songName, songArtist, checked)
+                            handleCheck={(
+                                songName: string,
+                                songArtist: string,
+                                isCover: boolean,
+                                checked: boolean,
+                            ) =>
+                                updatePlaylistQueue(
+                                    setPlaylistQueue,
+                                    songName,
+                                    songArtist,
+                                    isCover,
+                                    checked,
+                                )
                             }
                             selectAll={selectAll}
-                            showCovers={showCovers}
                         />
                     );
                 })}
@@ -95,5 +118,3 @@ function SetlistCard({ selectedArtist }: SetlistCardProps) {
         </div>
     );
 }
-
-export default SetlistCard;
