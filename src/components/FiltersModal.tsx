@@ -1,22 +1,32 @@
-function FiltersModal({ onCoversCheck, onSort, showCovers, isSorted, isHidden }: any) {
-    const filterSelected = "bg-violet-500 text-white";
-    const filterUnselected = "bg-neutral-200 text-neutral-900";
+import { Button } from "./Button";
+import type { SortState } from "./SetlistCard";
+interface FiltersModalProps {
+    showCovers: () => void;
+    isSorted: () => void;
+    isHidden: boolean;
+    sortState: SortState;
+}
+function FiltersModal({ showCovers, isSorted, isHidden, sortState }: FiltersModalProps) {
     const hidden = isHidden ? "" : "hidden";
+    const sortLabel: Record<SortState, string> = {
+        default: "Sort A->Z",
+        asc: "Sort Z-A",
+        desc: "Clear Sort",
+    };
     return (
         <div className={`${hidden}`}>
-            <button
-                className={`px-3 py-1 rounded-full ${showCovers ? filterSelected : filterUnselected}`}
-                onClick={() => onCoversCheck((prev: any) => !prev)}
-            >
-                Cover Songs
-            </button>
-
-            <button
-                className={`px-3 py-1 rounded-full ${isSorted ? filterSelected : filterUnselected}`}
-                onClick={onSort}
-            >
-                Sort A-Z
-            </button>
+            <Button
+                buttonLabel="Cover Songs"
+                color="violet"
+                defaultStatus={true}
+                onClick={showCovers}
+            />
+            <Button
+                buttonLabel={sortLabel[sortState]}
+                color="violet"
+                defaultStatus={false}
+                onClick={isSorted}
+            />
         </div>
     );
 }

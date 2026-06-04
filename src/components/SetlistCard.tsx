@@ -1,37 +1,43 @@
 import { useEffect, useState } from "react";
-import { parseSetlist } from "../utils/parseSetlist";
+import { parseSetlist, type ParsedSong } from "../utils/parseSetlist";
 import SongCard from "./SongCard";
 import { Funnel } from "lucide-react";
 import FiltersModal from "./FiltersModal";
 import PlaylistCreation from "./PlaylistCreation";
 import { setlistFMSearch } from "../api/setlistFMSearch";
+import { updatePlaylistQueue } from "../utils/updatePlaylistQueue";
+import { Button } from "./Button";
+import { sortSongsAtoZ } from "../utils/sortSongsAtoZ";
+import type { MusicBrainzArtist } from "../api/musicBrainzArtistSearch";
 
 export interface SpotifyPlaylistQueue {
     song: string;
     artist: string;
 }
 
-function SetlistCard({ selectedArtist, userProfile }: any) {
-    const [parsedSongs, setParsedSongs] = useState<any>([]);
+interface SetlistCardProps {
+    selectedArtist: MusicBrainzArtist;
+}
+
+export type SortState = "default" | "asc" | "desc";
+export const nextState: Record<SortState, SortState> = {
+    default: "asc",
+    asc: "desc",
+    desc: "default",
+};
+
+function SetlistCard({ selectedArtist }: SetlistCardProps) {
+    const [parsedSongs, setParsedSongs] = useState<ParsedSong[]>([]);
     const [playlistQueue, setPlaylistQueue] = useState<SpotifyPlaylistQueue[]>([]);
     const [selectAll, setSelectAll] = useState(false);
     const [filtersOpen, setFiltersOpen] = useState(false);
     const [showCovers, setShowCovers] = useState(true);
-    const [isSorted, setIsSorted] = useState(false);
+    const [sortState, setSortState] = useState<SortState>("default");
+
     const sortedSongs =
-        isSorted && parsedSongs
-            ? [...parsedSongs].sort((a, b) => a.name.localeCompare(b.name))
+        parsedSongs && sortState !== "default"
+            ? sortSongsAtoZ(parsedSongs, sortState)
             : parsedSongs;
-
-    const handleCheck = (songName: string, artistName: string, checked: boolean) => {
-        if (checked) {
-            setPlaylistQueue((prev) => [...prev, { song: songName, artist: artistName }]);
-        }
-        if (!checked) {
-            setPlaylistQueue((prev) => prev.filter((entry) => entry.song !== songName));
-        }
-    };
-
     useEffect(() => {
         if (!selectedArtist) return;
         const loadSetlist = async () => {
@@ -46,46 +52,47 @@ function SetlistCard({ selectedArtist, userProfile }: any) {
     }, [selectedArtist]);
 
     return (
-        <>
-            <PlaylistCreation
-                artist={selectedArtist}
-                userProfile={userProfile}
-                playlistQueue={playlistQueue}
-            />
-            <div className="flex justify-between p-3">
+        <div className="flex flex-col items-center bg-neutral-900 rounded-xl p-5 gap-2">
+            <PlaylistCreation artist={selectedArtist} playlistQueue={playlistQueue} />
+            <div className="flex justify-between items-end p-3 w-full">
                 <div className="flex">
-                    <Funnel onClick={() => setFiltersOpen((prev) => !prev)} />
+                    <Funnel
+                        className="hover:cursor-pointer hover:text-green-400"
+                        onClick={() => setFiltersOpen((prev) => !prev)}
+                    />
                     <FiltersModal
-                        onCoversCheck={setShowCovers}
-                        onSort={() => setIsSorted((prev) => !prev)}
-                        showCovers={showCovers}
-                        isSorted={isSorted}
+                        showCovers={() => setShowCovers((prev) => !prev)}
+                        isSorted={() => setSortState((prev) => nextState[prev])}
                         isHidden={filtersOpen}
+                        sortState={sortState}
                     />
                 </div>
-                <button
-                    className={`px-3 py-1 rounded-full ${selectAll ? "bg-violet-500 text-white" : "bg-neutral-200 text-neutral-900"}`}
-                    onClick={() => setSelectAll((prev) => !prev)}
-                >
-                    Select All
-                </button>
+                <div className="flex flex-col items-end">
+                    <Button
+                        buttonLabel="Select All"
+                        color="violet"
+                        onClick={() => setSelectAll((prev) => !prev)}
+                        defaultStatus={false}
+                    />
+                    <p className="text-end">Selected Songs: {playlistQueue.length}</p>
+                </div>
             </div>
-
-            <p className="text-end pr-5">Selected Songs: {playlistQueue.length}</p>
-            <div className="flex flex-col gap-2 p-5">
-                {sortedSongs?.map((song: any, index: any) => {
+            <div className="flex flex-col gap-1">
+                {sortedSongs?.map((song: ParsedSong, index: number) => {
                     return (
                         <SongCard
                             key={index}
                             song={song}
-                            handleCheck={handleCheck}
+                            handleCheck={(songName: string, songArtist: string, checked: boolean) =>
+                                updatePlaylistQueue(setPlaylistQueue, songName, songArtist, checked)
+                            }
                             selectAll={selectAll}
                             showCovers={showCovers}
                         />
                     );
                 })}
             </div>
-        </>
+        </div>
     );
 }
 

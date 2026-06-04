@@ -1,11 +1,21 @@
+import type { MusicBrainzArtist } from "../api/musicBrainzArtistSearch";
 import { spotifyCreatePlaylist } from "../api/spotifyCreatePlaylist";
+import { Button } from "./Button";
+import type { SpotifyPlaylistQueue } from "./SetlistCard";
 
-function PlaylistCreation({ playlistQueue, artist }: any) {
+interface PlaylistCreationProps {
+    playlistQueue: SpotifyPlaylistQueue[];
+    artist: MusicBrainzArtist;
+}
+function PlaylistCreation({ playlistQueue, artist }: PlaylistCreationProps) {
     return (
         <div>
-            <button onClick={() => spotifyCreatePlaylist(playlistQueue, artist.name)}>
-                Create Playlist
-            </button>
+            <Button
+                buttonLabel="Create Playlist"
+                color="green"
+                onClick={() => spotifyCreatePlaylist(playlistQueue, artist.name)}
+                defaultStatus={false}
+            />
         </div>
     );
 }

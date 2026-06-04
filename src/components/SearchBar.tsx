@@ -1,10 +1,13 @@
 import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { musicBrainzArtistSearch } from "../api/musicBrainzArtistSearch";
 import { getCountryName } from "../utils/getCountryName";
 import type { MusicBrainzArtist } from "../api/musicBrainzArtistSearch";
 
-function SearchBar({ onArtistSelect }: any) {
+interface SearchBarProps {
+    setSelectedArtist: Dispatch<SetStateAction<MusicBrainzArtist | null>>;
+}
+function SearchBar({ setSelectedArtist }: SearchBarProps) {
     const [input, setInput] = useState("");
     const [debouncedArtists, setDebouncedArtists] = useState<MusicBrainzArtist[]>([]);
 
@@ -14,7 +17,9 @@ function SearchBar({ onArtistSelect }: any) {
                 try {
                     const response = await musicBrainzArtistSearch(input);
                     if (!response) return;
-                    const validArtists = response.filter((artist: any) => artist.score >= 90);
+                    const validArtists = response.filter(
+                        (artist: MusicBrainzArtist) => artist.score >= 90,
+                    );
                     setDebouncedArtists(validArtists);
                 } catch (error) {
                     console.error("ERROR Setting Artist: ", error);
@@ -56,7 +61,7 @@ function SearchBar({ onArtistSelect }: any) {
                                 className="-mx-5 px-5 py-2 border-t-0 truncate whitespace-nowrap hover:bg-violet-500 hover:text-neutral-50 hover:cursor-pointer hover:font-bold"
                                 key={index}
                                 onMouseDown={() => {
-                                    onArtistSelect(result);
+                                    setSelectedArtist(result);
                                     setDebouncedArtists([]);
                                     setInput("");
                                 }}

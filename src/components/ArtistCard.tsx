@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { MusicBrainzArtist } from "../api/musicBrainzArtistSearch";
 import { fanartTVArtSearch, type FanArtResponse } from "../api/fanartTVArtSearch";
+
 interface ArtistCardProps {
     selectedArtist: MusicBrainzArtist;
 }

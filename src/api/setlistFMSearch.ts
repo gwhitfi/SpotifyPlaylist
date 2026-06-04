@@ -1,26 +1,26 @@
-interface Cover {
+export interface Cover {
     disambiguation?: string;
     mbid?: string;
     name?: string;
 }
 
-interface Song {
+export interface Song {
     name: string;
     cover?: Cover;
 }
 
-interface Set {
+export interface Set {
     encore?: number;
     song: Song[];
 }
 
-interface SetlistArtist {
+export interface SetlistArtist {
     disambiguation?: string;
     mbid: string;
     name: string;
 }
 
-interface Setlist {
+export interface Setlist {
     id: string;
     artist: SetlistArtist;
     eventDate?: string;

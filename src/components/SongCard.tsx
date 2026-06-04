@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import { lastFMAlbumArtSearch } from "../api/lastFMAlbumArtSearch";
+import type { ParsedSong } from "../utils/parseSetlist";
 
-function SongCard({ song, handleCheck, selectAll, showCovers }: any) {
+interface SongCardProps {
+    song: ParsedSong;
+    handleCheck: (songName: string, songArtist: string, checked: boolean) => void;
+    selectAll: boolean;
+    showCovers: boolean;
+}
+
+function SongCard({ song, handleCheck, selectAll, showCovers }: SongCardProps) {
     const [albumArt, setAlbumArt] = useState<string | null>(null);
     const [isChecked, setIsChecked] = useState(false);
     const hidden = !showCovers && song.isCover && "hidden";
@@ -28,13 +36,13 @@ function SongCard({ song, handleCheck, selectAll, showCovers }: any) {
         }
     }, [showCovers]);
     return (
-        <div className={`flex border border-neutral-50 gap-3 ${hidden}`}>
-            <img className="" src={`${albumArt}`} alt="" />
+        <div className={`flex border border-neutral-50 p-2 rounded-xl w-full gap-3 ${hidden}`}>
+            <img className="rounded-xl" src={`${albumArt}`} alt="" />
             <div className="flex flex-col w-full items-start justify-between">
                 <h2 className="text-xl">{song.isCover ? `${song.name} (cover)` : song.name}</h2>
                 {song.isCover && <p className="text-sm">{song.artist}</p>}
             </div>
-            <div className="flex align-center pr-5">
+            <div className="flex align-center">
                 <input
                     type="checkbox"
                     checked={hidden ? false : isChecked}
