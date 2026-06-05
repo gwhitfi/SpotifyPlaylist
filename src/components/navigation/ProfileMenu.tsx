@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { reportIssue } from "../../utils/reportIssue";
-import { ProfileMenuButton } from "./ProfileMenuButton";
+import { MenuButton } from "../common/MenuButton";
 import { spotifyLogout } from "../../utils/spotifyLogout";
 import { BookOpen, Bug, HomeIcon, Info, LogIn, LogOut } from "lucide-react";
 import type { SpotifyProfile } from "../../api/spotify/getSpotifyProfile";
@@ -23,16 +23,16 @@ export function ProfileMenu({ spotifyProfile }: ProfileMenuProps) {
                 <img className="w-6 h-6 rounded-full" src={profilePic} alt="logo" />
                 <p className="text-md ">{name}</p>
             </div>
-            <ProfileMenuButton onClick={() => navigate("/home")} icon={HomeIcon} text="Home" />
+            <MenuButton onClick={() => navigate("/home")} icon={HomeIcon} text="Home" />
 
-            <ProfileMenuButton onClick={() => reportIssue()} icon={Bug} text="Report Issues" />
-            <ProfileMenuButton onClick={() => navigate("/help")} icon={Info} text="Help" />
-            <ProfileMenuButton onClick={() => navigate("/about")} icon={BookOpen} text="About" />
+            <MenuButton onClick={() => reportIssue()} icon={Bug} text="Report Issues" />
+            <MenuButton onClick={() => navigate("/help")} icon={Info} text="Help" />
+            <MenuButton onClick={() => navigate("/about")} icon={BookOpen} text="About" />
             {spotifyProfile && (
-                <ProfileMenuButton onClick={() => spotifyLogout()} icon={LogOut} text="Log Out" />
+                <MenuButton onClick={() => spotifyLogout()} icon={LogOut} text="Log Out" />
             )}
             {!spotifyProfile && (
-                <ProfileMenuButton onClick={() => requestUserAuth()} icon={LogIn} text="Log In" />
+                <MenuButton onClick={() => requestUserAuth()} icon={LogIn} text="Log In" />
             )}
         </div>
     );

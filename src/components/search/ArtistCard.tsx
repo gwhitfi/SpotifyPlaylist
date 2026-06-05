@@ -25,7 +25,11 @@ export function ArtistCard({ selectedArtist }: ArtistCardProps) {
             <h2 className="text-4xl lg:text-6xl">{selectedArtist.name}</h2>
             <p className="text-xs lg:text-xl">{selectedArtist?.tags?.[0]?.name ?? ""}</p>
             {profileImage && (
-                <img src={profileImage} alt="artist-image" className="w-48 rounded-xl lg:w-96" />
+                <img
+                    src={profileImage}
+                    alt="artist-image"
+                    className="w-48 rounded-xl md:w-64 lg:w-96"
+                />
             )}
         </div>
     );

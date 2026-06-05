@@ -1,8 +1,11 @@
-import { Search } from "lucide-react";
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import { Search, Settings } from "lucide-react";
+import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from "react";
 import { musicBrainzArtistSearch } from "../../api/musicBrainzArtistSearch";
 import { getCountryName } from "../../utils/getCountryName";
 import type { MusicBrainzArtist } from "../../api/musicBrainzArtistSearch";
+import { useClickOutside } from "../../hooks/useClickOutside";
+import { SearchFilterMenu } from "./SearchFilterMenu";
+import { Tooltip } from "../common/Tooltip";
 
 interface SearchBarProps {
     setSelectedArtist: Dispatch<SetStateAction<MusicBrainzArtist | null>>;
@@ -10,6 +13,10 @@ interface SearchBarProps {
 export function SearchBar({ setSelectedArtist }: SearchBarProps) {
     const [input, setInput] = useState("");
     const [debouncedArtists, setDebouncedArtists] = useState<MusicBrainzArtist[]>([]);
+    const [openSearchMenu, setOpenSearchMenu] = useState(false);
+    const filterRef = useRef<HTMLDivElement>(null);
+
+    useClickOutside(filterRef, () => setOpenSearchMenu(false));
 
     useEffect(() => {
         const timer = setTimeout(async () => {
@@ -33,6 +40,23 @@ export function SearchBar({ setSelectedArtist }: SearchBarProps) {
 
     return (
         <div className="flex flex-col w-full p-6 bg-neutral-900 rounded-xl lg:p-12">
+            <div ref={filterRef} className="relative w-full flex justify-end">
+                <button
+                    className="group relative flex text-sm gap-1 pb-3 items-center justify-end hover:cursor-pointer"
+                    onClick={() => setOpenSearchMenu((prev) => !prev)}
+                >
+                    {!openSearchMenu && (
+                        <>
+                            <div className="hidden group-hover:block">
+                                <Tooltip text={"Edit search settings"} />
+                            </div>
+                        </>
+                    )}
+                    <Settings />
+                </button>
+
+                {openSearchMenu && <SearchFilterMenu />}
+            </div>
             <div className="relative">
                 <div
                     className={`flex border-2 border-neutral-200 p-2 ${debouncedArtists.length > 0 ? "rounded-t-xl" : "rounded-xl"}`}
