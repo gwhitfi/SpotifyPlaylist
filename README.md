@@ -22,3 +22,8 @@ Updates to come:
 
 ## Mobile friendly design
 <img src="./public/SpotifyPlaylistMobileFriendly1.png" width="45%"> <img src="./public/SpotifyPlaylistMobileFriendly2.png" width="45%">
+
+## Tech Stack
+* React, TypeScript, Tailwind CSS. 
+* Integrates the MusicBrainz, Setlist.fm, Last.fm, Fanart.TV, and Spotify APIs.
+* Spotify auth via OAuth 2.0 with PKCE.
