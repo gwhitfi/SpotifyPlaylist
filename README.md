@@ -1,73 +1,24 @@
-# React + TypeScript + Vite
+# Setlist -> Playlist via Spotify App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This web application built using React w/ TypeScript allows users to interactively search for a musical artist, view their most recently played songs from live shows, and then turn them into a custom Spotify playlist. This is a great tool for getting exposure to a new band, or preparing to see a band live and getting more familiar with their music!
 
-Currently, two official plugins are available:
+Updates to come:
+* Search filtering - as of now there is no real filtering, any artist can come up including classical composers such as Beethoven.
+* A playlist CAN be generated from selecting Beethoven, and it's interesting to see the results from these kind of older artists, but user's should be able to filter to only modern artists.
+* Ability for user to customize playlist name - currently hard set at "[Artist Name] - Recent Songs"
+* Playlist creation status - currently minimal confirmation of the playlist being successfully created. Create a status icon to indicate a song was successfully imported into the newly created playlist.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Log in with your Spotify account
+<img src="./public/SpotifyPlaylistLogin.png" alt="Login screenshot" width="400">
 
-## React Compiler
+## Search for your artist of choice
+<img src="./public/SpotifyPlaylistArtistSearch.png" alt="Artist Search screenshot" width="400">
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Artist search results 
+<img src="./public/SpotifyPlaylistSearchResults.png" alt="Artist Search Result screenshot" width="400">
 
-## Expanding the ESLint configuration
+## Sort by name, and filter to include or exclude cover songs
+<img src="./public/SpotifyPlaylistSongsWithFilters.png" alt="Song List screenshot" width="400">
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Mobile friendly design
+<img src="./public/SpotifyPlaylistMobileFriendly1.png" width="45%"> <img src="./public/SpotifyPlaylistMobileFriendly2.png" width="45%">
