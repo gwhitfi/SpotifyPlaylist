@@ -18,7 +18,7 @@ export function ProfileMenu({ spotifyProfile }: ProfileMenuProps) {
         spotifyProfile?.images?.find((image) => image.height === 300)?.url ?? spotifyLogo;
 
     return (
-        <div className="absolute top-full bg-neutral-900 -left-32 w-42 z-10 border border-neutral-700 p-2 rounded-xl text-center">
+        <div className="absolute top-full bg-neutral-900 -left-32 w-48 z-10 border border-neutral-700 p-2 rounded-xl text-center">
             <div className="flex justify-around items-center border-b py-2">
                 <img className="w-6 h-6 rounded-full" src={profilePic} alt="logo" />
                 <p className="text-md ">{name}</p>
